@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   db:
-    image: postgres
+    image: postgres:16.2  # Specify version for consistency
     container_name: postgres-container
     restart: always
     environment:
@@ -10,8 +10,11 @@ services:
       POSTGRES_DB: mydatabase
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist DB data
+
   app:
-    image: my-springboot-app
+    build: .  # Builds from local Dockerfile (adjust if needed)
     container_name: springboot-container
     restart: always
     depends_on:
@@ -22,3 +25,6 @@ services:
       SPRING_DATASOURCE_PASSWORD: mypassword
     ports:
       - "8080:8080"
+
+volumes:
+  postgres_data:  # Named volume for PostgreSQL persistence
