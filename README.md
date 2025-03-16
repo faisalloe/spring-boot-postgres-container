@@ -2,6 +2,9 @@ Spring Boot, PostgreSQL, JPA, Hibernate REST API Demo
 
 #### Steps to Setup
 
+## Optional # you can create postgress container and run application manually
+docker run --name postgres-db -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -e POSTGRES_DB=mydatabase -p 5432:5432 -d postgres:latest
+
 __1. Configure PostgreSQL__
 
 First, create a database named postgres_demo. Then, open src/main/resources/application.properties file and change the spring datasource username and password as per your PostgreSQL installation.
@@ -17,6 +20,11 @@ Alternatively, you can package the application in the form of a JAR file and the
 mvn clean package
 java -jar target/spring-boot-postgresql-0.0.1-SNAPSHOT.jar
 ```
+
+__3. Run app in container
+docker-compose up
+
+__4. `mvn clean install` runs test in test container
 
 The application will start on the default port 8080.
 
