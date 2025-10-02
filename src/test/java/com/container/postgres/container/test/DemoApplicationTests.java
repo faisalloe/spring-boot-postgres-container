@@ -1,5 +1,7 @@
 package com.container.postgres.container.test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,8 +41,10 @@ public class DemoApplicationTests {
 	}
 
 	@Test
-	void homeResponse() {
+	void homeResponse() throws JsonProcessingException {
 		String body = this.restTemplate.getForObject("/questions", String.class);
 		assertThat(body).isNotBlank();
+		String prettyJson = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(body);
+		System.out.println(prettyJson);
 	}
 }
